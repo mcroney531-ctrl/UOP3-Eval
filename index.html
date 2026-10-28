@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Coaching Product — After One Week | Field Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#000000; --paper:#ffffff; --muted:#4a4470;
+    --rule:#d1f7fd; --card:#f2fdff;
+    --shell:#190f79; --seg:#00627a; --seg-lit:#59e4f9; --seg-dim:#5f0747;
+    --tint-1:rgba(89,228,249,.30); --tint-2:rgba(0,98,122,.14);
+    --accent:#a5137c; --accent-soft:#7f1068;
+    --shell-grad:linear-gradient(135deg, #63316e 0%, #453973 55%, #384973 100%);
+    --grad-magenta:linear-gradient(120deg, #5f0747 0%, #a5137c 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:linear-gradient(160deg, #ffffff 0%, #ffffff 35%, #b9e7e3 145%);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;font-weight:300;
+    padding:56px 24px 100px;
+  }
+  .doc{max-width:760px;margin:0 auto;}
+
+
+  /* HEADER */
+  .doc-header{border-bottom:3px solid transparent;border-image:var(--shell-grad) 1;padding-bottom:22px;margin-bottom:38px;}
+  .kicker{font-family:'Merriweather',serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;background:var(--grad-magenta);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--seg-dim);display:inline-block;}
+  h1{font-family:'Lexend',sans-serif;font-size:38px;font-weight:600;letter-spacing:-.7px;line-height:1.08;margin:10px 0 8px;background:var(--shell-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--shell);}
+  .meta{font-size:12.5px;color:var(--muted);display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+  .meta span{display:flex;align-items:center;gap:5px;}
+  .meta b{color:var(--ink);font-weight:700;}
+
+
+  /* Public work-sample context: retains original report design */
+  .portfolio-note{font-size:12px;line-height:1.65;color:var(--muted);margin:-15px 0 28px;padding:12px 16px;border-left:3px solid var(--seg);background:rgba(255,255,255,.78);}
+
+  /* THESIS BANNER */
+  .thesis-banner{
+    background:var(--shell-grad);border-radius:10px;
+    padding:28px 32px;margin-bottom:42px;
+  }
+  .thesis-banner .tb-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--seg-lit);font-weight:700;margin-bottom:10px;}
+  .thesis-banner h2{font-family:'Lexend',sans-serif;font-size:26px;font-weight:600;color:#fff;line-height:1.25;margin-bottom:12px;}
+  .thesis-banner p{font-size:14.5px;line-height:1.7;max-width:620px;color:#eefcfe;}
+
+
+  /* EVIDENCE — lighter callout nested inside the thesis banner */
+  .thesis-banner .evidence-box{
+    background:linear-gradient(135deg, #ffffff 0%, #b9e7e3 100%);border-radius:8px;
+    padding:20px 24px;margin-top:22px;
+  }
+  .thesis-banner .evidence-box .c-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-soft);font-weight:700;margin-bottom:8px;}
+  .thesis-banner .evidence-box p{font-size:13.5px;line-height:1.65;color:#0c0c0c;max-width:none;margin-bottom:0;}
+  .thesis-banner .evidence-box p+p{margin-top:14px;}
+  .thesis-banner .evidence-box b{color:var(--shell);}
+
+
+  /* SCENARIO — two-column comparison panel */
+  .scenario{background:var(--shell-grad);border-radius:10px;overflow:hidden;margin:16px 0;}
+  .scenario-head{display:flex;align-items:stretch;}
+  .scenario-head > div{flex:1;display:flex;align-items:center;justify-content:center;padding:22px 12px;min-width:0;}
+  .scenario-head .sc-divider{width:1px;background:rgba(255,255,255,.2);flex:none;}
+  .scenario-name{font-family:'Lexend',sans-serif;font-size:24px;font-weight:600;color:#fff;letter-spacing:-.02em;text-align:center;}
+  .scenario-body{background:linear-gradient(135deg, #ffffff 0%, var(--card) 100%);padding:22px 24px;}
+  .touch-cols{display:grid;grid-template-columns:1fr 3px 1fr;gap:16px;}
+  .touch-divider{background:var(--accent-soft);border-radius:2px;}
+  .touch-col{display:flex;flex-direction:column;gap:4px;min-width:0;}
+  .touch-arrow{display:flex;justify-content:center;align-items:center;font-size:18px;font-weight:700;line-height:1;height:16px;background:var(--shell-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--accent-soft);}
+  .touch-frame{background:var(--shell-grad);border-radius:12px;padding:2px;}
+  .touch-box{background:#f6e8f3;border-radius:10px;padding:14px 16px;}
+  .touch-title{font-weight:700;color:var(--accent-soft);font-size:20px;margin-bottom:6px;}
+  .touch-box p{font-size:12.5px;line-height:1.55;color:var(--ink);margin:0;}
+  .touch-box p+p{margin-top:10px;}
+  .touch-box ul{list-style:none;margin:10px 0;}
+  .touch-box li{font-size:12.5px;line-height:1.5;padding-left:14px;position:relative;margin-bottom:4px;}
+  .touch-box li::before{content:'';position:absolute;left:0;top:7px;width:4px;height:4px;border-radius:50%;background:var(--accent-soft);}
+  .scenario-verdict{background:var(--paper);border-top:1px solid var(--rule);padding:16px 24px;font-size:14px;font-weight:600;color:var(--shell);line-height:1.6;text-align:center;}
+  @media(max-width:600px){
+    .scenario-name{font-size:16px;}
+    .scenario-head > div{padding:14px 6px;}
+    .scenario-body{padding:16px 14px;}
+    .touch-cols{gap:8px;}
+    .touch-col{gap:2px;}
+    .touch-arrow{font-size:14px;height:12px;}
+    .touch-box{padding:10px 10px;}
+    .touch-title{font-size:17.5px;margin-bottom:4px;}
+    .touch-box p{font-size:10.5px;}
+    .touch-box li{font-size:10.5px;}
+    .scenario-verdict{padding:14px 16px;font-size:13px;}
+  }
+
+
+  /* Keep comparison text legible without changing the two-column design. */
+  .section .touch-box p,.section .touch-box li{font-size:12.5px;line-height:1.55;}
+  @media(max-width:600px){.section .touch-box p,.section .touch-box li{font-size:11.5px;line-height:1.55;}}
+
+  /* SECTIONS */
+  .section{margin-bottom:38px;}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid transparent;border-image:var(--shell-grad) 1;}
+  .section-num{font-family:'Lexend',sans-serif;font-size:13px;font-weight:700;background:var(--grad-magenta);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:var(--seg-dim);}
+  .section h2{font-family:'Lexend',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.2px;}
+  .section p{font-size:14px;line-height:1.75;margin-bottom:12px;}
+  .section ul{list-style:none;margin-bottom:6px;}
+  .section li{font-size:13.5px;line-height:1.65;padding:6px 0 6px 20px;position:relative;}
+  .section li::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg);}
+  .section li b{font-weight:700;color:var(--ink);}
+  .section li a{color:var(--accent);font-weight:600;}
+
+
+  /* CALLOUT — evidence attachment */
+  .callout{
+    background:var(--shell-grad);color:#eefcfe;border-radius:8px;
+    padding:20px 24px;margin:16px 0;
+  }
+  .callout .c-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--seg-lit);font-weight:700;margin-bottom:8px;}
+  .callout p{font-size:13.5px;line-height:1.65;color:#eefcfe;margin-bottom:0;}
+
+
+  /* GUARDRAIL PAIR */
+  .guardrails{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;}
+  .g-card{background:var(--shell-grad);border-radius:8px;padding:16px 18px;}
+  .g-card .g-tag{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--seg-lit);font-weight:700;margin-bottom:8px;}
+  .g-card p{font-size:13px;line-height:1.6;margin-bottom:0;color:#eefcfe;}
+  @media(max-width:600px){.guardrails{grid-template-columns:1fr;}}
+
+
+  /* GRADIENT FRAME — bordered white box, used by Wishlist & Questions */
+  .gradient-frame{background:var(--shell-grad);border-radius:14px;padding:3px;margin-top:16px;}
+  .gradient-box{background:var(--paper);border-radius:12px;padding:24px 28px;}
+  .gradient-box ul+ul{margin-top:14px;}
+
+
+  @media print{
+    body{padding:0;}
+    .thesis-banner{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .callout{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+
+
+  <div class="doc-header">
+    <div class="kicker">Field Report — One Week In</div>
+    <h1>AI Coaching Product: After One Week</h1>
+    <div class="meta">
+      <span>Leadership-facing exploratory evaluation · approximately one week of access</span>
+    </div>
+  </div>
+  <p class="portfolio-note">Portfolio adaptation of an original workplace field report. Following an early product rollout, a senior leader invited my assessment; I focused on practical value, user adoption, and what might encourage people to return. This was an early, qualitative hands-on evaluation—not a formal user study. Product details and selected examples have been generalized for confidentiality; observations, design hypotheses, and recommendations are distinguished throughout.</p>
+
+  <div class="callout" style="margin-bottom:34px;margin-top:0;">
+    <div class="c-tag">What I Did</div>
+    <ul style="list-style:none;">
+      <li style="font-size:13.5px;line-height:1.65;padding:6px 0 6px 18px;position:relative;color:#eefcfe;"><span style="position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg-lit);"></span><b style="color:#fff;">Attempted direct teammate lookups/calls in the chat session:</b> arguably the most critical feature on the entire app. It was the first thing I asked about when I logged in, and something I kept testing throughout the week. There's a big difference between seeing a continuum, a graph, or a side-by-side comparison of you and a colleague, and having relevant comparison insights available to inform a conversation in more situations — being able to flat-out state, without sugarcoating and without fear of judgment, "I am facing this problem with this colleague," and actually talk or work through it. That's significant, and it was a point of emphasis for me early and often. It was admittedly a bit bumpy when a colleague's profile wasn't available, though the lookup experience improved during my week of access. I treated this as a usability issue worth monitoring.</li>
+      <li style="font-size:13.5px;line-height:1.65;padding:6px 0 6px 18px;position:relative;color:#eefcfe;"><span style="position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg-lit);"></span><b style="color:#fff;">Inquired about the tool's own capabilities and discussed potential use cases with it conversationally:</b> I personally think discussing what a large language model can and can't do, and how it interacts with you, is — or should be — standard practice, and a quick way to align and set expectations. I thought the tool was pretty clear in its communication on this front.</li>
+      <li style="font-size:13.5px;line-height:1.65;padding:6px 0 6px 18px;position:relative;color:#eefcfe;"><span style="position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg-lit);"></span><b style="color:#fff;">Attempted to launch a "project":</b> not always, but I tend to give LLM chat sessions specific purposes — general talk, article drafting, a specific task — and wanted to do the same here: establish a "purpose," a longer-term environment with context set upfront. A common mistake with LLMs is skipping that step entirely, or stopping at the cheesy "you are a world-class expert" framing instead of plainly stating why you're there and what you're doing. Establishing those parameters gives a session far more purpose and precise direction — and a long-term, purposeful setup like this isn't just practical for the user, it inherently encourages them to return. I started a project-oriented conversation with an ongoing work task in mind, with the intention of evaluating how useful that context remained over time.</li>
+      <li style="font-size:13.5px;line-height:1.65;padding:6px 0 6px 18px;position:relative;color:#eefcfe;"><span style="position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg-lit);"></span><b style="color:#fff;">Sought guidance on rewording a (mock) harsh message draft:</b> personally, I think this is one of the cleaner use cases — one that can cut through effectively to a wide range of audiences. We all have things we hold in or don't fully address head-on: maybe there's no proper outlet, maybe we don't want to seem dumb, maybe we're not comfortable naming how a certain behavior is really bothering us, or maybe we just don't feel confident in how we've worded something important. Or the kneejerk instinct is to say it a certain way, when saying it like that would only cause more problems or unintended consequences. This was something I really wanted to try, and I'll keep testing it in real settings — I think there's wide "human" appeal here.
+      <br><br>Doing this also helped me think again in augmentation terms. The results I got back were good, but I rarely take a first draft from AI as final — the way I tend to work with it is to take the output and fine-tune/iterate until I'm happy with the message, or whatever we're putting together. So the natural next thought was: what if I included examples of messages I've actually sent, to infuse my own voice into these draft outputs — along with anything else that could make the output richer or more useful? At that point, you and the coach are operating on a more similar playing field. On a larger scale, you could even turn it on yourself and ask it to "evaluate my messaging style" — and if relevant personal context were available, it could make that exercise more reflective of how you actually communicate. The more you lean into the augmentation, the richer and more valuable the tool starts to feel.</li>
+      <li style="font-size:13.5px;line-height:1.65;padding:6px 0 6px 18px;position:relative;color:#eefcfe;"><span style="position:absolute;left:0;top:13px;width:5px;height:5px;border-radius:50%;background:var(--seg-lit);"></span><b style="color:#fff;">Light stress-testing:</b> pushed toward its boundaries — not stress-tested on purpose, just asked in passing — the tool held those too. When I asked about technical details it couldn't access, it set a clear limit. Asked about pasting a colleague's chat exchange in for help, the response was "yes, but" — with a clear caveat to redact sensitive details. Not a blanket refusal, not reckless — good judgment, unprompted, in a moment that wasn't a test.</li>
+    </ul>
+  </div>
+
+
+  <!-- 01 -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">01</span><h2>Early Impressions</h2></div>
+    <ul>
+      <li><b>Top-line, one week in:</b> overall impression is genuinely positive. Real potential is already visible, and use cases are surfacing independently rather than needing to be prompted.</li>
+      <li><b>This could become an everyday app for many people.</b> Where the existing resource is more of a "touch-consultation" experience, a conversational layer opens up more situations in which someone might find it useful.</li>
+      <li><b>More versatile than anticipated — with real potential to invite return visits.</b> It can help with things in the moment, big or small, but catered with real specificity. Where the assessment platform informed you of preferences and tendencies broadly — how they might affect a situation in the abstract — the conversational experience could draw on appropriate assessment insights when discussing a specific situation, rather than leaving the user to make the connection alone. That could give someone more reasons to return to the app.</li>
+      <li><b>These behaviors already exist — and that's a good thing.</b> This ties back to an important concept in my broader AI-adoption thinking, which was that the strongest AI successes and the most transferable use cases are the ones people are already doing, just unstructured — on a personal ChatGPT or Claude account, or their work Copilot account, consulting about something, rewording a message, whatever it is. What's different here isn't the behavior, it's the structure: the possibility of assessment-informed conversations—including appropriate comparison insights—is a meaningful difference from an ad hoc chat without that background. The pitch isn't convincing people to start doing something new — it's pointing to people already doing it and giving that behavior a properly contextualized home.</li>
+      <li><b>There's real value in comparing and contrasting the assessment platform and the AI coaching app.</b> It goes back to the "what are you already doing — and already doing well" framing that lends itself to successful AI adoption. Thinking about this tool with a tether to familiar terms helped clarify my thinking, but it also made the contrasts click clearly: "oh, X can be an extension of Y" or "wow, this could make the experience behind Z feel so much richer now." Instead of an abstract "AI" or "AI-powered" pitch, it becomes a plain what-is vs. what-can-be.</li>
+      <li><b>"What if the assessment resource could talk back?"</b> The words that kept coming up all week were <em>static</em> and <em>dynamic</em> — that's the core differentiator, illustrated further in the Scenario below. Framing it as "talking to the assessment platform" makes it feel more familiar to people less comfortable with AI, because the key point isn't anything sci-fi — it's about making previously static insights something a user can discuss and apply. This product, and its dynamic layer, extends what already made the assessment platform great; it doesn't replace it. One possibility I kept coming back to: a familiar reference-first experience and a newer conversational one could eventually serve different preferences, even as they share a foundation.</li>
+      <li><b>The conversational boundaries held — even off-script.</b> Some of my most useful early impressions came from conversations that weren't planned tests. The app still maintained useful boundaries in those moments.</li>
+      <li><b>The Augmentation Mindset Shift:</b> while troubleshooting a small issue, it became clear this tool can be used in parallel with work — not just consulted the way a static resource is consulted. Most tools in this category are reference material: here is information, here are tips, here is data, go use it. This one, used well, behaves differently — closer to augmentation than reference, worked with in real time rather than looked up and left. The notable part isn't that the tool can do this — it's that no one was following an anticipated workflow to get there. The conversation surfaced it unprompted.</li>
+    </ul>
+  </div>
+
+
+  <div class="thesis-banner">
+    <div class="tb-label">💡The Key Unlock</div>
+    <h2>This is the floor, not the ceiling.</h2>
+    <p>Out of the box, the app offers a common baseline: an AI coach, standard features, and a reasonable starting experience. What happens after that point is not fixed — the ceiling is set by what the user brings to it and how far they choose to take it. Nearly everything below is either evidence of that floor, or a response to how high the ceiling could go.</p>
+    <div class="evidence-box">
+      <div class="c-tag">Supporting Example — AI Coach Exchange</div>
+      <p><b>Me:</b> <em>"I think there's potential — with limits — to use you nicely in the AI-augmented workflow age. Where yes, we discuss how to talk about stuff, but also kinda working 'side-by-side' on things too, if you will. My goal is to think beyond the basics and show my team how, in essence, your program and the features on this app are the floor, but the dynamic nature of AI comms means that it's NOT the ceiling in the same way static content is — in other words, beyond 'what you see is what you get.' I know you can't give internal technical details, but even still, we did some light tech troubleshooting. That might not be a use case, but it illustrates that you can go where the user takes you, within reason."</em></p>
+      <p><b>AI coach response (paraphrased to protect internal product information):</b> The coach reinforced the distinction between the app's visible features and the more flexible support a conversation could provide. It described moving from understanding an interpersonal dynamic to drafting a message, exploring patterns, or planning a practical next step—within the tool's boundaries. It also emphasized transparency: the coach should be clear about what it cannot access, distinguish inference from fact, and encourage verification with the app or a person when appropriate. That combination of practical support and clear limits was the point I wanted to illustrate.</p>
+    </div>
+  </div>
+
+
+  <!-- 02 -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">02</span><h2>Scenario: Fresh Touchpoints</h2></div>
+    <p><b>Illustrative scenario, not a recorded user study:</b> I'm collaborating with a teammate on a deadline-driven project. We both have an instinct to preserve harmony — but the turnaround on this deliverable is quick. Here's how use of the two experiences might differ throughout that process:</p>
+    <div class="scenario">
+      <div class="scenario-head">
+        <div><span class="scenario-name">Reference-based experience</span></div>
+        <div class="sc-divider"></div>
+        <div><span class="scenario-name">AI coaching experience</span></div>
+      </div>
+      <div class="scenario-body">
+        <div class="touch-cols">
+          <div class="touch-col">
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">01 Orientation</div>
+              <p>Use a colleague-comparison view: look the teammate up, review similarities and differences, and compare working tendencies. I jot down a few specific notes from the working-style guidance to keep in mind throughout the project. I'd also note potential collaboration challenges to anticipate as things progress. <b><em>Assessment insight (paraphrased):</em></b> Both teammates may prefer a measured pace, which can support dependable work but also make quick decisions harder under deadline pressure.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">02 Prepare for meeting</div>
+              <p>I'd revisit the colleague-comparison guidance for a quick refresher before the meeting. If there's something specific on my mind, maybe I seek out one particular section — or even some tailored advice.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">03 Mid-week touch-consultation</div>
+              <p>The further into the project we get, the more the two products start to separate themselves. Again, if there's something specific on my mind, maybe I seek tailored advice or review the colleague-comparison guidance again — but at this point I've seen this content twice within the past few days. Maybe I review it a third time. Maybe not.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">04 Feeling the heat</div>
+              <p><b>It's nearing Wednesday afternoon, and neither teammate has touched base — but the project is due EOW. I need to know my teammate's status, because I can't complete a crucial part of the project until I have her finished contribution. I'm starting to stress, and I don't want to be one day away from the deadline without a firm footing.</b></p>
+              <p>I turn to the tailored advice on managing tension and review the suggestions for navigating the situation with my colleague.</p>
+              <p><em>Advice themes (paraphrased to protect internal assessment language):</em></p>
+              <ul>
+                <li><b>Raise concerns directly.</b> Discuss tension constructively rather than letting it build.</li>
+                <li><b>Share what you need.</b> Explain your perspective rather than keeping frustration to yourself.</li>
+                <li><b>Invite openness.</b> Make room for the other person to share concerns or expectations.</li>
+                <li><b>Agree on a next step.</b> Arrange a timely conversation and work toward a practical plan.</li>
+              </ul>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">05 Giving &amp; Receiving Critical Feedback</div>
+              <p><b>It's Thursday. I just received the teammate's contribution I needed to finish the project — but I notice a few items that need to be fixed or addressed, and quickly.</b></p>
+              <p>I check the assessment platform to see if there's anything about feedback besides what I've already reviewed a few times earlier in the week. I see there's a self-guided learning module specifically for giving and receiving feedback, but one thing stops me from exploring it: the format requires time I don't have in that moment. It may include the content I'm looking for, but it's not coming in a palatable format for that specific moment, with my specific needs. I'm in a crunch, so I decide to move on.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">06 Deadline</div>
+              <p>At this point I've reviewed the colleague-comparison guidance and tailored advice multiple times, and I'm too buried in the task to return and review content again. The product largely sits idle through the finish line.</p>
+            </div></div>
+          </div>
+          <div class="touch-divider"></div>
+          <div class="touch-col">
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">01 Orientation</div>
+              <p><b><em>Assessment insight (paraphrased):</em></b> Both teammates may prefer a measured pace, which can support dependable work but also make quick decisions harder under deadline pressure.</p>
+              <p>This is why I started by saying that direct teammate lookup is a crucial feature to nail. Ideally, when I bring up that teammate, relevant comparison insights could help frame the conversation from the start. I would not have to begin by explaining every assessment detail myself. Instead of flagging the potential for settling into a slower pace and giving a tip, it could become a discussion about how that's affecting you specifically, on this project, in this moment, from this request — maybe talking through specific examples of real moments where it was a factor, and so on.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">02 Prepare for meeting</div>
+              <p>Instead of pulling up a page I've already reviewed and sifting through for information that might translate to my needs in the moment, I'm having a fresh — and far more relevant, tailored — experience. With the right context available, relevant comparison insights could inform the conversation from the beginning. So instead of "here's the information," the autonomy is back on the user: "you already have the information, here's my current situation, help me work through it." The stopping point for one is now what fuels the other — and again, that can make the experience far richer, fresher, more relevant.</p>
+              <p>I'd start the session by mentioning that we have a meeting, and sharing any other important details on the project that may be relevant to it that day. <b>The idea is to return to the conversation started during orientation, add the latest project details myself, and build on the relevant insights we have already discussed. That continuity could make each return more useful; it does not depend on assuming the app automatically knows what happened at work.</b></p>
+              <p>I'd mention what my goals for the meeting are, and seek additional guidance on making the most of it and creating actionable items.</p>
+              <p>And as a bonus, after the meeting, I might paste in the transcript (redacting sensitive info). This would build more context in the ongoing coaching conversation, and keep it up to date with what's actually happening in the project. I can also debrief the meeting against the goals and action items we set beforehand, and weigh it against the roadblocks and other orientation information that was discussed.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">03 Mid-week touch-consultation</div>
+              <p>I'm in a more active role than passive: I'm not seeking a reference, I'm bringing my real, in-the-moment situation, and the goal shifts from gaining insight to applying it in real time. I can pair the specifics of this moment with the context accumulated throughout the week and any relevant context available to the conversation — talking it through with the coach, putting my raw sentiment against all of it.</p>
+              <p>This is the other piece of augmentation: I don't need to talk about things in the abstract, or limit this to working through challenges. Consider the specific callout from Orientation about both of our work styles — maybe this mid-week consultation is about setting priorities or delegating for the rest of the project, or building out an action item or checklist. It can get involved in the real work, the real project (within reason), applying the insights and accumulated context to the actual dynamics of the week as events are unfolding.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">04 Feeling the heat</div>
+              <p><b>It's nearing Wednesday afternoon, and neither teammate has touched base — but the project is due EOW. I need to know my teammate's status, because I can't complete a crucial part of the project until I have her finished contribution. I'm starting to stress, and I don't want to be one day away from the deadline without a firm footing.</b></p>
+              <p>Consider the four advice themes paraphrased in the reference-based column: raise concerns, share what you need, invite openness, and agree on a next step.</p>
+              <p>In this scenario, the coach could factor in the four tips on managing tension, alongside relevant comparisons and topics like conflict — making them a starting point rather than something the user has to find separately on the site. Rather than sending me back to the same static advice, a coach with access to appropriate contextual guidance could help apply those themes to the situation I am actually bringing.</p>
+              <p>I don't need to sugarcoat how I'm feeling — I can explain, in detail, my point of view, the challenges, what I want to say, and why, and use that to actually work through the moment while I'm feeling it. Where relevant insights are available, it might even surface a pattern that helps explain why I'm feeling this way: what's the underlying need, motivator, or stressor? What's the discomfort, and why? We always say with the assessment platform that it's not about changing your style or personality, it's about adjusting your approach. This works the same way — it's not just about rewording a harsh message, it's deeper self-reflection, becoming more conscious of your approach and what the moment actually needs. Again, it comes down to the shift in autonomy, and the rich discussion that comes with it.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">05 Giving &amp; Receiving Critical Feedback</div>
+              <p><b>It's Thursday. I just received the teammate's contribution I needed to finish the project — but I notice a few items that need to be fixed or addressed, and quickly.</b></p>
+              <p>I could bring a carefully framed draft of my feedback and explain the situation and my apprehensions, without sharing sensitive details. If appropriate assessment insights are available, that context might reveal patterns I had not considered. The conversation could examine both how I might give the feedback and how the other person might receive it, in the specific moment we are facing. That's the difference between static and dynamic, and the difference in legitimate returnability while staying genuinely fresh. I'm coming into this chat with a whole new set of information and context that going back to review the static content a third time, or trying to turn over rocks on my own, wouldn't.</p>
+            </div></div>
+            <div class="touch-arrow">↓</div>
+            <div class="touch-frame"><div class="touch-box">
+              <div class="touch-title">06 Deadline</div>
+              <p>In this imagined workflow, the utility could remain fresh all the way through — and past — the deadline. I would keep updating the conversation with relevant context, reacting to real-time events, and navigating real challenges. If we're reaching crunch time and I need some additional guidance, I can go back in and use it the same way I have all project. But I can also debrief the project afterward. The value would come from relevant context I had shared along the way, paired with appropriate assessment insights where available. How did we end up managing those roadblocks we discussed? What might I do differently regarding feedback moving forward, particularly with this specific teammate? In general, where is my head at following the project? The utility extends beyond the project.</p>
+            </div></div>
+          </div>
+        </div>
+      </div>
+      <div class="scenario-verdict">The case for returning becomes more compelling as circumstances evolve, particularly if relevant context carries forward from one moment to the next.</div>
+    </div>
+  </div>
+
+
+  <!-- 03 -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">03</span><h2>Wishlist</h2></div>
+    <div class="gradient-frame">
+      <div class="gradient-box">
+        <p>A few rough edges surfaced this week. Framed under the core thesis, these read less as broken promises and more as specific spots where the floor is still settling.</p>
+        <ul>
+          <li><b>Memory across sessions</b> — during my initial testing, stated preferences didn't appear to persist. A limitation in that early experience, not evidence the longer-term potential isn't real.</li>
+        </ul>
+        <ul>
+          <li><b>Ability to rename conversations.</b> This goes back to giving a chat a purpose — it's not a one-off conversation, it's the establishment of an environment, and that invites returnability and consistent use.</li>
+          <li><b>Let the daily tip ask, not assume</b> — in my early tests, it assumed a generic course-participant context rather than adjusting to the actual role. That was a gap in one specific interaction, not evidence the whole product was unreliable. Rather than assuming role and context upfront, a light clarifying question on first use could invite the user to self-customize — self-correcting through interaction instead of requiring a manual rebuild later.
+          <br><br>The daily tip, delivered as a message in a workplace communication tool, feels like an invitation into the full app — which makes it even more critical to get right. If it comes off inaccurate, unhelpful, or stale, it signals that the rest of the experience will be similar. Rather than trying to engineer the "right" context for everyone — which is borderline impossible — making it more conversational and inquiry-based serves as a better invitation, and takes some of that precision pressure off. In the version I tested, responding to the message continued the exchange in the app. That makes the first interaction worth getting right. Asking and arriving at the daily tip/focus together, based on inquiry, makes it feel more collaborative in nature — and encourages the kind of augmented workflow that will make this product a successful one.</li>
+          <li><b>"Quick actions"</b> — this extends an approach I saw in the app: topic-based buttons that open a coach conversation with a suggested starting prompt. Those are more topic/concept-based; this would be more action-based. Example: Quick actions → "Help me craft a message" → launches a coach conversation with "Great, what is the message, and who are we sending it to?" If research on use cases has already been done, this could be a great way to put that data to use. The tool is extremely vast and can be used in a myriad of ways, which is great but can also be overwhelming. Quick actions could be a fast, practical way for even a light user to say "well, I do use it sometimes, with the help-me-craft-a-message feature" — straightforward, but still carrying all the utility of the tool. It also helps shift the mindset from "this can be informative" to "I can actually do things in here."</li>
+          <li><b>Explore connecting self-guided learning experiences with AI coaching (proposed).</b> Those modules already invite action — adding conversational support could pair beautifully with that experience. Imagine a learner choosing to bring the goals from an action plan into a coaching conversation, so they could work through how to apply those goals to something happening right now. Instead of treating the module and the conversation as two separate stops, one could give the other more purpose. That's a future design opportunity, not functionality I observed during this first week.
+          <br><br>The same logic could extend to the product's tailored-advice experience. There's something simple and approachable about the basic advice flow: you select a colleague you want advice on working with, plus what specifically you want advice on. That could be made even more interactive, dynamic, and accessible for the average user, precisely because it's already targeted and specific — and familiar to anyone who's used the assessment platform. More of the "what are you already doing well" concept.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 04 -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">04</span><h2>What This Means for How We Teach It</h2></div>
+    <div class="thesis-banner" style="margin-bottom:0;">
+      <p style="max-width:none;">The traditional model for rolling out a feature is straightforward: the feature is static, a walkthrough explains what it does, and that's sufficient. This product doesn't fit that model cleanly. Its actual ceiling depends entirely on what the user brings to it — a one-time walkthrough won't teach someone how to get long-term value out of something that rewards ongoing use.</p>
+      <p style="max-width:none;margin-top:14px;"><b>The practical implication:</b> learning content likely needs to shift from <em>here's what this feature does</em> to <em>here's how you can make the most of it</em> — teaching usage patterns and habits, not just surface functionality. You only get out what you put in, and that has to be taught deliberately. It won't be assumed correctly on its own.</p>
+    </div>
+  </div>
+
+
+  <!-- 05 -->
+  <div class="section">
+    <div class="section-head"><span class="section-num">05</span><h2>Questions Moving Forward</h2></div>
+    <div class="gradient-frame">
+      <div class="gradient-box">
+        <ul>
+          <li>What are the "early wins" a user can experience that build belief in a product and a desire to return to it for genuine guidance?</li>
+          <li>What research was done during development on how people actually use AI at work, and what did it reveal? That's the kind of insight that could surface clear-cut use cases worth showcasing and advertising.</li>
+          <li>Have we considered role-specific use cases? A project manager constantly checking in with reports on their progress or giving them direction is likely to use this quite differently than an individual contributor. This loops back to the research question above, and connects to the "early wins" a user can build on and want to keep returning to.</li>
+          <li>What cultural and social tone should we actively encourage around this product? the assessment platform took real, deliberate effort to build its own culture and language — the shift from "I've done the assessment platform" to "we use the assessment platform." Something I've been personally wondering about AI more broadly: when does it become normal to talk openly about a genuine revelation from a conversation with an AI, without it feeling stigmatized? Will people share their wins with this product openly, or does it feel more private by nature — and what's our role in shaping that language?</li>
+          <li>Like the useful "here's how you can use this to help yourself advance, improve, and progress" framing from a professional-development course — what are the ways we ensure we're presenting this tool in that same light, rather than leaning too heavily on novelty, or a "look what it can do" pitch?</li>
+          <li>What does long-term, consistent QA look like for a product this dynamic and responsive, in an environment where things change quickly and human behavior is unpredictable? Today's novelty can become tomorrow's roadblock, hallucination, or stale feature — how do we ensure consistently high-quality outputs over time?</li>
+          <li><b>Bonus:</b> not really a question so much as an anticipated one. With our current assessments and products, we already get asked whether they hold up and translate across cultures. AI is known to carry bias — it's essentially impossible to have a fully unbiased LLM, since it's trained on human data and humans hold biases too, so even the cleanest systems still have those loops. I'd anticipate eventually fielding similar questions about cultural crossover, hold-up, and translation with this product's AI layer — good to start thinking about now, ahead of being asked.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+</body>
+</html>
